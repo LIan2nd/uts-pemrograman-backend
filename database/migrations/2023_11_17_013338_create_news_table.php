@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->text('content');
             $table->string('url');
             $table->string('url_image');
-            $table->datetime('published_at')->default(Carbon::now());
+            $table->datetime('published_at')->default(Carbon::now())->nullable();
             $table->string('category');
             $table->timestamps();
         });

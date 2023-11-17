@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route Group untuk Middleware
+// Route Group Autentikasi Sanctum
 Route::middleware(['auth:sanctum'])->group(function () {
     // Route Resource yang sudah mencakup keseluruhan method untuk resource
     // Route::resource('/news', NewsController::class)->except('create', 'edit');
@@ -32,7 +32,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/news/{id}', [NewsController::class, 'update']);
     Route::delete('/news/{id}', [NewsController::class, 'destroy']);
 
-    // Route untuk method yang tidak ada di route resource
+    // Route untuk method pencarian (title) dan dari Category yang telah ditentukan
     Route::get('/news/search/{title}', [NewsController::class, 'search']);
     Route::get('/news/category/sport', [NewsController::class, 'sport']);
     Route::get('/news/category/finance', [NewsController::class, 'finance']);

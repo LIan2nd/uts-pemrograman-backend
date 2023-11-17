@@ -47,7 +47,6 @@ class NewsController extends Controller
             "content" => "required|min:10",
             "url" => "required",
             "url_image" => "required",
-            "published_at" => "nullable",
             "category" => "required|min:3|max:255"
         ]);
 
@@ -165,19 +164,25 @@ class NewsController extends Controller
      */
     public function search(Request $request, $title)
     {
+        // Mencari data dari title
         $newsData = News::where('title', 'like', '%' . $title . '%')->get();
+
+        // Cek apakah data yang dicari dari title ada atau tidak
         if ($newsData->isEmpty()) {
             $data = [
                 'message' => 'News not found'
             ];
 
+            // Mengembalikan response Not Found
             return response()->json($data, 404);
         }
+
+        // Data & Message dari data yang telah dicari melalui titile
         $data = [
             'message' => 'Get Searched News',
             'data' => $newsData
         ];
-
+        // Pengembalian response
         return response()->json($data, 200);
     }
 
@@ -187,20 +192,28 @@ class NewsController extends Controller
      */
     public function sport()
     {
+
+        // Mencari data berita berkategori sport
         $newsData = News::where('category', 'sport')->get();
+
+        // Pengecekan apakah data yang berkategori sport ada atau tidak
         if ($newsData->isEmpty()) {
             $data = [
                 'message' => 'News not found'
             ];
 
+            // Pengembalian response not found
             return response()->json($data, 404);
         }
+
+        // Jika ada, data dari category sport
         $data = [
             'message' => 'Get Sport News',
             'total' => $newsData->count(),
             'data' => $newsData
         ];
 
+        // Pengembalian response pencarian category sport (Berhasil)
         return response()->json($data, 200);
     }
 
@@ -209,14 +222,18 @@ class NewsController extends Controller
      */
     public function finance()
     {
+        // Pencarian data berita berkategori finance
         $newsData = News::where('category', 'finance')->get();
         if ($newsData->isEmpty()) {
             $data = [
                 'message' => 'News not found'
             ];
 
+            // Pengembalian response not found
             return response()->json($data, 404);
         }
+
+        // Jika ada, data dari category finance
         $data = [
             'message' => 'Get Finance News',
             'total' => $newsData->count(),
@@ -231,20 +248,28 @@ class NewsController extends Controller
      */
     public function automotive()
     {
+
+        // Mencari data berita yang berkategori automotive
         $newsData = News::where('category', 'automotive')->get();
+
+        // Cek apakah data berita berkategori automotive ada atau tidak
         if ($newsData->isEmpty()) {
             $data = [
                 'message' => 'News not found'
             ];
 
+            // Pengembalian response not found
             return response()->json($data, 404);
         }
+
+        // Jika ada, data dari category automotive
         $data = [
             'message' => 'Get Automotive News',
             'total' => $newsData->count(),
             'data' => $newsData
         ];
 
+        // Pengembalian response json dari data pencarian automotive
         return response()->json($data, 200);
     }
 }

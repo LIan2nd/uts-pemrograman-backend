@@ -43,6 +43,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    // relasi dari table User kepada table News (OneToMany)
     public function news()
     {
         return $this->hasMany(News::class);
